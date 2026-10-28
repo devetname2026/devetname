@@ -9,25 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
-    /* Əgər Anglecia Pro Display (.woff2) faylınız varsa, aşağıdakı şrift faylı yolunu düzəldin: */
-    @font-face {
-      font-family: 'Anglecia Pro Display';
-      src: url('fonts/AngleciaProDisplay-Regular.woff2') format('woff2'),
-           url('fonts/AngleciaProDisplay-Regular.ttf') format('truetype');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    @font-face {
-      font-family: 'Anglecia Pro Display';
-      src: url('fonts/AngleciaProDisplay-Bold.woff2') format('woff2'),
-           url('fonts/AngleciaProDisplay-Bold.ttf') format('truetype');
-      font-weight: 600;
-      font-style: normal;
-      font-display: swap;
-    }
-
     :root {
       --bg-chic: #FAF7F2;
       --bg-card: #FFFFFF;
@@ -37,10 +18,6 @@
       --text-dark: #2C221E;
       --text-muted: #7A685B;
       --shadow: 0 20px 45px rgba(139, 94, 52, 0.06);
-      
-      /* Dəvətnamə başlıqları üçün Anglecia Pro Display şrifti təyin olundu */
-      --font-heading: 'Anglecia Pro Display', 'Cormorant Garamond', 'Playfair Display', serif;
-      --font-body: 'Plus Jakarta Sans', sans-serif;
     }
 
     * {
@@ -53,7 +30,7 @@
     body {
       background-color: var(--bg-chic);
       color: var(--text-dark);
-      font-family: var(--font-body);
+      font-family: 'Plus Jakarta Sans', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -61,4 +38,7 @@
       overflow-x: hidden;
     }
 
-    /* Başlıqlar, bəy-gəlin adları və xüsusi yazılar üçün Anglecia Pro Display şrifti
+    .container {
+      width: 100%;
+      max-width: 440px;
+      min-height:
