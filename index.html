@@ -291,43 +291,79 @@
       color: var(--text-muted);
     }
 
-    /* RSVP */
-    .rsvp-btns {
+    /* RSVP FORM STYLES */
+    .rsvp-form {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 14px;
       margin-top: 16px;
+      text-align: left;
     }
 
-    .btn-rsvp {
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--camel-light);
+      background: var(--bg-chic);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--camel-main);
+      background: #FFF;
+    }
+
+    textarea.form-control {
+      resize: none;
+      height: 80px;
+    }
+
+    .btn-submit {
       width: 100%;
       padding: 14px;
       border-radius: 10px;
       border: none;
+      background: var(--camel-dark);
+      color: #FFF;
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: background 0.3s ease;
+      margin-top: 4px;
     }
 
-    .btn-accept {
-      background: var(--camel-dark);
-      color: #FFF;
+    .btn-submit:hover {
+      background: var(--camel-main);
     }
 
-    .btn-decline {
-      background: var(--bg-chic);
-      color: var(--text-muted);
-      border: 1px solid var(--camel-light);
-    }
-
-    .rsvp-message {
-      margin-top: 12px;
-      font-size: 13px;
+    .rsvp-success-message {
+      margin-top: 16px;
+      font-size: 14px;
       color: var(--camel-dark);
       font-weight: 500;
       display: none;
+      text-align: center;
+      line-height: 1.5;
     }
   </style>
 </head>
@@ -393,14 +429,30 @@
         </div>
       </div>
 
-      <!-- RSVP CARD -->
+      <!-- RSVP & WISHES CARD -->
       <div class="card">
-        <div class="subtitle">İŞTİRAKIN TƏSDİQİ</div>
-        <div class="rsvp-btns" id="rsvp-actions">
-          <button class="btn-rsvp btn-accept" onclick="respondRSVP(true)">✨ Gələcəyəm</button>
-          <button class="btn-rsvp btn-decline" onclick="respondRSVP(false)">Təəssüf ki, gələ bilməyəcəyəm</button>
-        </div>
-        <div class="rsvp-message" id="rsvp-msg"></div>
+        <div class="subtitle">İştirak və Təbriklər</div>
+        <form class="rsvp-form" id="rsvp-form" onsubmit="submitRSVP(event)">
+          <div class="form-group">
+            <label for="guest-name">Ad və Soyadınız</label>
+            <input type="text" id="guest-name" class="form-control" placeholder="Məs: Elvin Məmmədov" required>
+          </div>
+          <div class="form-group">
+            <label for="guest-count">İştirakçı sayı</label>
+            <select id="guest-count" class="form-control" required>
+              <option value="1">1 nəfər (Tək)</option>
+              <option value="2" selected>2 nəfər (Cütlük)</option>
+              <option value="3">3 nəfər</option>
+              <option value="4">4 nəfər</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="guest-wishes">Ürək sözləriniz / Təbrik</label>
+            <textarea id="guest-wishes" class="form-control" placeholder="Xoş arzularınızı qeyd edin..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">✨ Cavabı Göndər</button>
+        </form>
+        <div class="rsvp-success-message" id="rsvp-success"></div>
       </div>
 
     </div>
@@ -436,25 +488,27 @@
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // RSVP Action
-    function respondRSVP(attending) {
-      const actions = document.getElementById('rsvp-actions');
-      const msg = document.getElementById('rsvp-msg');
+    // Form Submit Action
+    function submitRSVP(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('guest-name').value;
+      const count = document.getElementById('guest-count').value;
+      const wishes = document.getElementById('guest-wishes').value;
+      
+      const form = document.getElementById('rsvp-form');
+      const successMsg = document.getElementById('rsvp-success');
 
-      actions.style.display = 'none';
-      msg.style.display = 'block';
+      form.style.display = 'none';
+      successMsg.style.display = 'block';
+      successMsg.innerHTML = `Təşəkkür edirik, <b>${name}</b>!<br>Cavabınız qeydə alındı. Sizi və ${count} nəfərlik heyətinizi aramızda görməyə səbirsizlənirik! ✨`;
 
-      if (attending) {
-        msg.innerText = "Təşəkkür edirik! Sizi aramızda görməyə şad olarıq ✨";
-        confetti({
-          particleCount: 80,
-          spread: 60,
-          origin: { y: 0.7 },
-          colors: ['#C19A6B', '#8B5E34', '#EAE0D5']
-        });
-      } else {
-        msg.innerText = "Diqqətiniz üçün təşəkkür edirik 🙏";
-      }
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.7 },
+        colors: ['#C19A6B', '#8B5E34', '#EAE0D5']
+      });
     }
   </script>
 </body>
