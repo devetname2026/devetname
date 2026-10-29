@@ -137,7 +137,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      transition: opacity 0.8s ease, visibility 0.8s;
+      transition: opacity 0.5s ease, visibility 0.5s;
     }
 
     .envelope-wrapper {
@@ -214,8 +214,8 @@
       flex-direction: column;
       gap: 28px;
       opacity: 0;
-      transform: translateY(25px);
-      transition: opacity 1s ease, transform 1s ease;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
     .content.visible {
@@ -566,7 +566,7 @@
 </head>
 <body>
 
-  <!-- AUDIO ELEMENT (Eylem Aktaş - Yüreğimden Tut) & FLOATING BUTTON -->
+  <!-- AUDIO ELEMENT (Eylem Aktaş - Tut Yüreğimdən) & FLOATING BUTTON -->
   <audio id="bg-music" loop preload="auto">
     <source src="https://audio.com/sinem-coskun/audio/eylem-aktas-yu-reg-imden-tut-akustik" type="audio/mpeg">
   </audio>
@@ -756,16 +756,15 @@
       const env = document.getElementById('envelope-screen');
       const content = document.getElementById('main-content');
       
-      // Auto play music when user clicks envelope
+      // Zərfə kliklənən kimi dərhal musiqini işə salırıq
       if (!isPlaying) {
         toggleMusic();
       }
 
+      // Zərfi gizlədib dərhal dəvətnaməni göstəririk
       env.style.opacity = '0';
-      setTimeout(() => {
-        env.style.visibility = 'hidden';
-        content.classList.add('visible');
-      }, 800);
+      env.style.visibility = 'hidden';
+      content.classList.add('visible');
     }
 
     // Countdown Timer (16 November 2026, 18:00:00)
