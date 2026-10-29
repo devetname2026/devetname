@@ -36,6 +36,43 @@
       align-items: center;
       min-height: 100vh;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* SHOOTING STARS BACKGROUND EFFECT */
+    .stars-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--camel-dark);
+      opacity: 0.3;
+      border-radius: 50%;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) translateX(0);
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(110vh) translateX(-20vw);
+        opacity: 0;
+      }
     }
 
     .container {
@@ -48,6 +85,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      position: relative;
+      z-index: 2;
     }
 
     /* ENVELOPE SCREEN */
@@ -288,7 +327,7 @@
       border: 1px solid var(--camel-light);
     }
 
-    /* ENHANCED DRESS CODE (GEYİM TƏRZİ) */
+    /* GEYİM TƏRZİ (DRESS CODE) */
     .dresscode-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -379,7 +418,7 @@
       height: 70px;
     }
 
-    /* ATTENDANCE OPTIONS (RSVP BUTTON BOARDS) */
+    /* ATTENDANCE OPTIONS */
     .attendance-options {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -457,6 +496,9 @@
 </head>
 <body>
 
+  <!-- SHOOTING STARS EFFECT CONTAINER -->
+  <div class="stars-container" id="stars-container"></div>
+
   <!-- ENVELOPE SCREEN -->
   <div id="envelope-screen" onclick="openEnvelope()">
     <div class="envelope-wrapper">
@@ -522,7 +564,7 @@
           <div class="dress-card">
             <span style="font-size: 28px;">👗</span>
             <div class="dress-card-title">Xanımlar</div>
-            <div class="dress-card-desc">Elecant ziyafət / uzun gecə libası</div>
+            <div class="dress-card-desc">Elegant ziyafət / uzun gecə libası</div>
             <div class="color-palette">
               <div class="color-swatch" style="background: #EAE0D5;"></div>
               <div class="color-swatch" style="background: #C19A6B;"></div>
@@ -545,7 +587,7 @@
             </div>
           </div>
 
-          <!-- LÖVHƏ 2: İştirak Statusu (Gələcəyəm / Gələ bilməyəcəyəm) -->
+          <!-- LÖVHƏ 2: İştirak Statusu -->
           <div class="form-group">
             <label>İştirak Statusunuz</label>
             <div class="attendance-options">
@@ -595,6 +637,20 @@
   </div>
 
   <script>
+    // Generate shooting stars dynamically
+    const starsContainer = document.getElementById('stars-container');
+    const starCount = 25;
+
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.top = `${Math.random() * -50}vh`;
+      star.style.animationDuration = `${5 + Math.random() * 7}s`;
+      star.style.animationDelay = `${Math.random() * 5}s`;
+      starsContainer.appendChild(star);
+    }
+
     function openEnvelope() {
       const env = document.getElementById('envelope-screen');
       const content = document.getElementById('main-content');
@@ -606,7 +662,7 @@
       }, 800);
     }
 
-    // Countdown Timer (16.10.2026)
+    // Countdown Timer (16 October 2026, 18:00:00)
     const weddingDate = new Date('October 16, 2026 18:00:00').getTime();
 
     function updateTimer() {
@@ -614,10 +670,20 @@
       const diff = weddingDate - now;
 
       if (diff > 0) {
-        document.getElementById('days').innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
-        document.getElementById('hours').innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-        document.getElementById('minutes').innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-        document.getElementById('seconds').innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('days').innerText = String(days).padStart(2, '0');
+        document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+      } else {
+        document.getElementById('days').innerText = "00";
+        document.getElementById('hours').innerText = "00";
+        document.getElementById('minutes').innerText = "00";
+        document.getElementById('seconds').innerText = "00";
       }
     }
 
