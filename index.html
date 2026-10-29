@@ -142,16 +142,19 @@
 
     .envelope-wrapper {
       width: 340px;
-      height: 230px;
+      height: 240px;
       background: #F2E9E1;
       border: 1px solid var(--camel-light);
       border-radius: 12px;
       position: relative;
       box-shadow: 0 25px 50px rgba(139, 94, 52, 0.15);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       cursor: pointer;
+      gap: 15px;
+      padding: 20px;
     }
 
     .ribbon {
@@ -163,9 +166,19 @@
       border-right: 1px solid rgba(193, 154, 107, 0.3);
     }
 
+    .envelope-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: var(--camel-dark);
+      letter-spacing: 3px;
+      z-index: 2;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
     .wax-seal {
-      width: 80px;
-      height: 80px;
+      width: 65px;
+      height: 65px;
       background: linear-gradient(135deg, #C19A6B, #8B5E34);
       border-radius: 50%;
       display: flex;
@@ -173,10 +186,10 @@
       align-items: center;
       color: #FFF;
       font-family: 'Playfair Display', serif;
-      font-size: 26px;
+      font-size: 22px;
       font-weight: 600;
       letter-spacing: 2px;
-      box-shadow: 0 8px 20px rgba(139, 94, 52, 0.4);
+      box-shadow: 0 6px 15px rgba(139, 94, 52, 0.4);
       position: relative;
       z-index: 2;
       border: 2px solid #EAE0D5;
@@ -188,7 +201,7 @@
     }
 
     .tap-hint {
-      margin-top: 30px;
+      margin-top: 25px;
       font-size: 13px;
       letter-spacing: 2.5px;
       text-transform: uppercase;
@@ -351,6 +364,39 @@
       text-transform: uppercase;
       color: var(--text-muted);
       margin-top: 4px;
+    }
+
+    /* PROGRAM TIMELINE */
+    .program-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+      text-align: left;
+    }
+
+    .program-item {
+      display: flex;
+      align-items: center;
+      background: var(--bg-chic);
+      border: 1px solid var(--camel-light);
+      border-radius: 12px;
+      padding: 12px 16px;
+      gap: 16px;
+    }
+
+    .program-time {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--camel-dark);
+      min-width: 60px;
+    }
+
+    .program-desc {
+      font-size: 13px;
+      color: var(--text-dark);
+      font-weight: 500;
     }
 
     /* LOCATION & MAPS */
@@ -566,7 +612,7 @@
 </head>
 <body>
 
-  <!-- AUDIO ELEMENT (Local music.mp3 from GitHub) & FLOATING BUTTON -->
+  <!-- AUDIO ELEMENT (Local music.mp3) & FLOATING BUTTON -->
   <audio id="bg-music" loop preload="auto">
     <source src="music.mp3" type="audio/mpeg">
   </audio>
@@ -579,6 +625,7 @@
   <div id="envelope-screen" onclick="openEnvelope()">
     <div class="envelope-wrapper">
       <div class="ribbon"></div>
+      <div class="envelope-title">Dəvətlisiniz!</div>
       <div class="wax-seal">F&S</div>
     </div>
     <div class="tap-hint">Açmaq üçün toxunun</div>
@@ -615,6 +662,29 @@
           <div class="timer-box"><div class="timer-value" id="hours">00</div><div class="timer-label">Saat</div></div>
           <div class="timer-box"><div class="timer-value" id="minutes">00</div><div class="timer-label">Dəqiqə</div></div>
           <div class="timer-box"><div class="timer-value" id="seconds">00</div><div class="timer-label">Saniyə</div></div>
+        </div>
+      </div>
+
+      <!-- WEDDING PROGRAM SECTION (TOY PROQRAMI) -->
+      <div class="section-block">
+        <div class="subtitle">TOY PROQRAMI</div>
+        <div class="program-list">
+          <div class="program-item">
+            <div class="program-time">18:00</div>
+            <div class="program-desc">Qonaqların qarşılanması və zərif musiqi</div>
+          </div>
+          <div class="program-item">
+            <div class="program-time">18:30</div>
+            <div class="program-desc">Bəy və gəlinin toy masasına dəvəti</div>
+          </div>
+          <div class="program-item">
+            <div class="program-time">19:00</div>
+            <div class="program-desc">Bayram süfrəsi və əyləncəli şou proqram</div>
+          </div>
+          <div class="program-item">
+            <div class="program-time">22:30</div>
+            <div class="program-desc">Toy tortunun kəsilməsi və xatirə fotoları</div>
+          </div>
         </div>
       </div>
 
