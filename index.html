@@ -17,7 +17,7 @@
       --camel-light: #EAE0D5;
       --text-dark: #3D2B1F;
       --text-muted: #7A685B;
-      --shadow: 0 15px 35px rgba(139, 94, 52, 0.08);
+      --shadow: 0 20px 45px rgba(139, 94, 52, 0.08);
     }
 
     * {
@@ -40,14 +40,14 @@
 
     .container {
       width: 100%;
-      max-width: 440px;
-      min-height: 100vh;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 30px 16px;
       background: var(--bg-chic);
-      position: relative;
-      box-shadow: 0 0 50px rgba(0,0,0,0.05);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      justify-content: center;
     }
 
     /* ENVELOPE SCREEN */
@@ -67,13 +67,13 @@
     }
 
     .envelope-wrapper {
-      width: 320px;
-      height: 220px;
+      width: 340px;
+      height: 230px;
       background: #F2E9E1;
       border: 1px solid var(--camel-light);
-      border-radius: 8px;
+      border-radius: 12px;
       position: relative;
-      box-shadow: 0 20px 40px rgba(139, 94, 52, 0.12);
+      box-shadow: 0 25px 50px rgba(139, 94, 52, 0.15);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -82,7 +82,7 @@
 
     .ribbon {
       position: absolute;
-      width: 40px;
+      width: 45px;
       height: 100%;
       background: var(--camel-light);
       border-left: 1px solid rgba(193, 154, 107, 0.3);
@@ -90,8 +90,8 @@
     }
 
     .wax-seal {
-      width: 75px;
-      height: 75px;
+      width: 80px;
+      height: 80px;
       background: linear-gradient(135deg, #C19A6B, #8B5E34);
       border-radius: 50%;
       display: flex;
@@ -99,10 +99,10 @@
       align-items: center;
       color: #FFF;
       font-family: 'Playfair Display', serif;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 600;
       letter-spacing: 2px;
-      box-shadow: 0 6px 18px rgba(139, 94, 52, 0.35);
+      box-shadow: 0 8px 20px rgba(139, 94, 52, 0.4);
       position: relative;
       z-index: 2;
       border: 2px solid #EAE0D5;
@@ -110,13 +110,13 @@
     }
 
     .envelope-wrapper:hover .wax-seal {
-      transform: scale(1.06);
+      transform: scale(1.08);
     }
 
     .tap-hint {
-      margin-top: 25px;
-      font-size: 12px;
-      letter-spacing: 2px;
+      margin-top: 30px;
+      font-size: 13px;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
       color: var(--camel-dark);
       opacity: 0.8;
@@ -128,15 +128,19 @@
       50% { opacity: 0.9; }
     }
 
-    /* MAIN INVITATION CONTENT */
+    /* MAIN INVITATION CONTENT (SINGLE CARD LAYOUT) */
     .content {
       width: 100%;
-      padding: 40px 24px;
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 40px 32px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(234, 224, 213, 0.8);
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 32px;
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(25px);
       transition: opacity 1s ease, transform 1s ease;
     }
 
@@ -145,13 +149,15 @@
       transform: translateY(0);
     }
 
-    .card {
-      background: var(--bg-card);
-      border-radius: 16px;
-      padding: 32px 24px;
+    .section-block {
       text-align: center;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(234, 224, 213, 0.6);
+      padding-bottom: 24px;
+      border-bottom: 1px dashed var(--camel-light);
+    }
+
+    .section-block:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
     }
 
     .subtitle {
@@ -165,7 +171,7 @@
 
     .couples-title {
       font-family: 'Playfair Display', serif;
-      font-size: 38px;
+      font-size: 42px;
       font-weight: 400;
       color: var(--text-dark);
       margin-bottom: 16px;
@@ -178,10 +184,10 @@
 
     .date-badge {
       display: inline-block;
-      padding: 8px 18px;
+      padding: 10px 22px;
       background: var(--bg-chic);
-      border-radius: 20px;
-      font-size: 13px;
+      border-radius: 30px;
+      font-size: 14px;
       font-weight: 500;
       color: var(--camel-dark);
       margin-bottom: 20px;
@@ -189,7 +195,7 @@
 
     .opening-text {
       font-family: 'Playfair Display', serif;
-      font-size: 18px;
+      font-size: 19px;
       line-height: 1.6;
       color: var(--text-muted);
       font-style: italic;
@@ -199,20 +205,20 @@
     .timer-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
+      gap: 10px;
       margin-top: 16px;
     }
 
     .timer-box {
       background: var(--bg-chic);
-      padding: 12px 6px;
-      border-radius: 10px;
+      padding: 14px 8px;
+      border-radius: 12px;
       border: 1px solid var(--camel-light);
     }
 
     .timer-value {
       font-family: 'Playfair Display', serif;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 600;
       color: var(--camel-dark);
     }
@@ -221,19 +227,19 @@
       font-size: 10px;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-top: 2px;
+      margin-top: 4px;
     }
 
     /* LOCATION & MAPS */
     .venue-title {
       font-family: 'Playfair Display', serif;
-      font-size: 24px;
+      font-size: 26px;
       color: var(--text-dark);
       margin-bottom: 6px;
     }
 
     .venue-address {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-muted);
       margin-bottom: 20px;
     }
@@ -245,15 +251,15 @@
 
     .btn-map {
       flex: 1;
-      padding: 12px;
-      border-radius: 10px;
+      padding: 13px;
+      border-radius: 12px;
       text-decoration: none;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 500;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 8px;
       transition: background 0.3s ease;
     }
 
@@ -283,11 +289,11 @@
     }
 
     .dress-icon {
-      font-size: 24px;
+      font-size: 26px;
     }
 
     .dress-text {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-muted);
     }
 
@@ -295,7 +301,7 @@
     .rsvp-form {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
       margin-top: 16px;
       text-align: left;
     }
@@ -316,12 +322,12 @@
 
     .form-control {
       width: 100%;
-      padding: 12px 14px;
-      border-radius: 10px;
+      padding: 13px 16px;
+      border-radius: 12px;
       border: 1px solid var(--camel-light);
       background: var(--bg-chic);
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-dark);
       outline: none;
       transition: border-color 0.3s ease;
@@ -334,18 +340,18 @@
 
     textarea.form-control {
       resize: none;
-      height: 80px;
+      height: 90px;
     }
 
     .btn-submit {
       width: 100%;
-      padding: 14px;
-      border-radius: 10px;
+      padding: 15px;
+      border-radius: 12px;
       border: none;
       background: var(--camel-dark);
       color: #FFF;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
       cursor: pointer;
       transition: background 0.3s ease;
@@ -358,7 +364,7 @@
 
     .rsvp-success-message {
       margin-top: 16px;
-      font-size: 14px;
+      font-size: 15px;
       color: var(--camel-dark);
       font-weight: 500;
       display: none;
@@ -378,12 +384,12 @@
     <div class="tap-hint">Açmaq üçün toxunun</div>
   </div>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN CONTAINER -->
   <div class="container">
     <div class="content" id="main-content">
       
-      <!-- HERO CARD -->
-      <div class="card">
+      <!-- HERO SECTION -->
+      <div class="section-block">
         <div class="subtitle">TOY DƏVƏTNAMƏSİ</div>
         <h1 class="couples-title">Fuad <span>&</span> Sevinc</h1>
         <div class="date-badge">16 NOYABR 2026 • SAAT 18:00</div>
@@ -392,8 +398,8 @@
         </p>
       </div>
 
-      <!-- TIMER CARD -->
-      <div class="card">
+      <!-- TIMER SECTION -->
+      <div class="section-block">
         <div class="subtitle">Toya qalan vaxt</div>
         <div class="timer-grid">
           <div class="timer-box"><div class="timer-value" id="days">00</div><div class="timer-label">Gün</div></div>
@@ -403,19 +409,19 @@
         </div>
       </div>
 
-      <!-- LOCATION CARD -->
-      <div class="card">
+      <!-- LOCATION SECTION -->
+      <div class="section-block">
         <div class="subtitle">MƏKAN</div>
         <div class="venue-title">Golden Ring Şadlıq Sarayı</div>
-        <div class="venue-address">Bakı şəhəri, Bakıxanov qəsəbəsi</div>
+        <div class="venue-address">Bakı şəhəri</div>
         <div class="btn-group">
           <a href="https://maps.google.com" target="_blank" class="btn-map btn-gmaps">🗺️ Google Maps</a>
           <a href="https://waze.com" target="_blank" class="btn-map btn-waze">🚗 Waze</a>
         </div>
       </div>
 
-      <!-- DRESS CODE CARD -->
-      <div class="card">
+      <!-- DRESS CODE SECTION -->
+      <div class="section-block">
         <div class="subtitle">GEYİM QAYDASI</div>
         <div class="dresscode-items">
           <div class="dress-item">
@@ -429,8 +435,8 @@
         </div>
       </div>
 
-      <!-- RSVP & WISHES CARD -->
-      <div class="card">
+      <!-- RSVP & WISHES SECTION -->
+      <div class="section-block">
         <div class="subtitle">İştirak və Təbriklər</div>
         <form class="rsvp-form" id="rsvp-form" onsubmit="submitRSVP(event)">
           <div class="form-group">
@@ -494,7 +500,6 @@
       
       const name = document.getElementById('guest-name').value;
       const count = document.getElementById('guest-count').value;
-      const wishes = document.getElementById('guest-wishes').value;
       
       const form = document.getElementById('rsvp-form');
       const successMsg = document.getElementById('rsvp-success');
