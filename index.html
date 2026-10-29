@@ -39,6 +39,41 @@
       position: relative;
     }
 
+    /* MUSIC CONTROL BUTTON (FLOATING) */
+    .music-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--camel-light);
+      box-shadow: 0 4px 15px rgba(139, 94, 52, 0.15);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .music-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .music-btn.playing {
+      animation: rotateMusic 4s linear infinite;
+      border-color: var(--camel-main);
+      background: var(--bg-chic);
+    }
+
+    @keyframes rotateMusic {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
     /* SHOOTING STARS BACKGROUND EFFECT */
     .stars-container {
       position: fixed;
@@ -531,6 +566,12 @@
 </head>
 <body>
 
+  <!-- AUDIO ELEMENT (Eylem Aktaş - Yüreğimden Tut) & FLOATING BUTTON -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="https://audio.com/sinem-coskun/audio/eylem-aktas-yu-reg-imden-tut-akustik" type="audio/mpeg">
+  </audio>
+  <button class="music-btn" id="music-btn" onclick="toggleMusic()" title="Musiqini idarə et">🎵</button>
+
   <!-- SHOOTING STARS EFFECT CONTAINER -->
   <div class="stars-container" id="stars-container"></div>
 
@@ -678,6 +719,25 @@
   </div>
 
   <script>
+    // Music Controls
+    const music = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
+    let isPlaying = false;
+
+    function toggleMusic() {
+      if (isPlaying) {
+        music.pause();
+        musicBtn.classList.remove('playing');
+        musicBtn.innerText = '🔇';
+      } else {
+        music.play().then(() => {
+          musicBtn.classList.add('playing');
+          musicBtn.innerText = '🎵';
+        }).catch(() => {});
+      }
+      isPlaying = !isPlaying;
+    }
+
     // Generate shooting stars dynamically
     const starsContainer = document.getElementById('stars-container');
     const starCount = 30;
@@ -696,6 +756,11 @@
       const env = document.getElementById('envelope-screen');
       const content = document.getElementById('main-content');
       
+      // Auto play music when user clicks envelope
+      if (!isPlaying) {
+        toggleMusic();
+      }
+
       env.style.opacity = '0';
       setTimeout(() => {
         env.style.visibility = 'hidden';
