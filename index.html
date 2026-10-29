@@ -56,7 +56,7 @@
       width: 2px;
       height: 2px;
       background: var(--camel-dark);
-      opacity: 0.3;
+      opacity: 0.4;
       border-radius: 50%;
       animation: fall linear infinite;
     }
@@ -66,11 +66,11 @@
         transform: translateY(-10vh) translateX(0);
         opacity: 0;
       }
-      50% {
-        opacity: 0.6;
+      30% {
+        opacity: 0.7;
       }
       100% {
-        transform: translateY(110vh) translateX(-20vw);
+        transform: translateY(110vh) translateX(-15vw);
         opacity: 0;
       }
     }
@@ -564,7 +564,7 @@
           <div class="dress-card">
             <span style="font-size: 28px;">👗</span>
             <div class="dress-card-title">Xanımlar</div>
-            <div class="dress-card-desc">Elegant ziyafət / uzun gecə libası</div>
+            <div class="dress-card-desc">Zərif ziyafət geyimi</div>
             <div class="color-palette">
               <div class="color-swatch" style="background: #EAE0D5;"></div>
               <div class="color-swatch" style="background: #C19A6B;"></div>
@@ -639,14 +639,14 @@
   <script>
     // Generate shooting stars dynamically
     const starsContainer = document.getElementById('stars-container');
-    const starCount = 25;
+    const starCount = 30;
 
     for (let i = 0; i < starCount; i++) {
       const star = document.createElement('div');
       star.classList.add('star');
       star.style.left = `${Math.random() * 100}vw`;
       star.style.top = `${Math.random() * -50}vh`;
-      star.style.animationDuration = `${5 + Math.random() * 7}s`;
+      star.style.animationDuration = `${4 + Math.random() * 6}s`;
       star.style.animationDelay = `${Math.random() * 5}s`;
       starsContainer.appendChild(star);
     }
