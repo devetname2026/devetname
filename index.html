@@ -675,11 +675,11 @@
           </div>
           <div class="program-item">
             <div class="program-time">18:30</div>
-            <div class="program-desc">Bəy və gəlinin dəvəti</div>
+            <div class="program-desc">Bəy və gəlinin toy masasına dəvəti</div>
           </div>
           <div class="program-item">
             <div class="program-time">19:00</div>
-            <div class="program-desc">Bəy və Gəlinin möhtəşəm rəqsi</div>
+            <div class="program-desc">Bayram süfrəsi və musiqili əyləncə</div>
           </div>
           <div class="program-item">
             <div class="program-time">22:30</div>
@@ -783,7 +783,7 @@
             </div>
           </div>
 
-          <button type="submit" class="btn-submit">✨ Cavabı Göndər</button>
+          <button type="submit" class="btn-submit" id="submit-btn">✨ Cavabı Göndər</button>
         </form>
         
         <div class="rsvp-success-message" id="rsvp-success"></div>
@@ -830,12 +830,10 @@
       const env = document.getElementById('envelope-screen');
       const content = document.getElementById('main-content');
       
-      // Zərfə kliklənən kimi dərhal musiqini işə salırıq
       if (!isPlaying) {
         toggleMusic();
       }
 
-      // Zərfi gizlədib dərhal dəvətnaməni göstəririk
       env.style.opacity = '0';
       env.style.visibility = 'hidden';
       content.classList.add('visible');
@@ -869,31 +867,59 @@
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // Form Submit Action
+    // Form Submit Action (Connected to Google Sheets via SheetDB)
     function submitRSVP(event) {
       event.preventDefault();
-      
+
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.innerText = 'Göndərilir...';
+      submitBtn.disabled = true;
+
       const name = document.getElementById('guest-name').value;
       const count = document.getElementById('guest-count').value;
       const attending = document.querySelector('input[name="attendance"]:checked').value;
-      
+      const wishes = document.getElementById('guest-wishes').value;
+
       const form = document.getElementById('rsvp-form');
       const successMsg = document.getElementById('rsvp-success');
 
-      form.style.display = 'none';
-      successMsg.style.display = 'block';
+      const sheetData = {
+        name: name,
+        attendance: attending === 'yes' ? 'Gələcək' : 'Gələ bilməyəcək',
+        count: count,
+        wishes: wishes
+      };
 
-      if (attending === 'yes') {
-        successMsg.innerHTML = `Təşəkkür edirik, <b>${name}</b>!<br>Cavabınız qeydə alındı. Sizi və ${count} nəfərlik heyətinizi aramızda görməyə səbirsizlənirik! ✨`;
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.7 },
-          colors: ['#C19A6B', '#8B5E34', '#EAE0D5']
-        });
-      } else {
-        successMsg.innerHTML = `Məlumat üçün təşəkkür edirik, <b>${name}</b>.<br>Gələ bilməsəniz də, diqqətiniz və xoş arzularınız bizim üçün çox dəyərlidir! 🙏`;
-      }
+      fetch('https://sheetdb.io/api/v1/2lgq0gzjrsm4f', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ data: [sheetData] })
+      })
+      .then(response => response.json())
+      .then(data => {
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+
+        if (attending === 'yes') {
+          successMsg.innerHTML = `Təşəkkür edirik, <b>${name}</b>!<br>Cavabınız qeydə alındı. Sizi və ${count} nəfərlik heyətinizi aramızda görməyə səbirsizlənirik! ✨`;
+          confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.7 },
+            colors: ['#C19A6B', '#8B5E34', '#EAE0D5']
+          });
+        } else {
+          successMsg.innerHTML = `Məlumat üçün təşəkkür edirik, <b>${name}</b>.<br>Gələ bilməsəniz də, diqqətiniz və xoş arzularınız bizim üçün çox dəyərlidir! 🙏`;
+        }
+      })
+      .catch(error => {
+        alert('Cavab göndərilərkən xəta baş verdi. Xahiş olunur yenidən cəhd edin.');
+        submitBtn.innerText = '✨ Cavabı Göndər';
+        submitBtn.disabled = false;
+      });
     }
   </script>
 </body>
